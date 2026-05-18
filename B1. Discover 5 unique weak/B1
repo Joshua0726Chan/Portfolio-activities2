@@ -1,4 +1,4 @@
-B1. Discover 5 unique weak/vulnerable security implementations.
+#B1. Discover 5 unique weak/vulnerable security implementations.
 
 1. Broken password hashing
 Using legacy hashing algorithms like MD5 or SHA-1  without a crytographic salt
