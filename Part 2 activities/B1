@@ -1,6 +1,6 @@
 #B1. Discover 5 unique weak/vulnerable security implementations.
 
-1. Broken password hashing
+1. Cryptographic weakness: Broken password hashing
 Using legacy hashing algorithms like MD5 or SHA-1  without a crytographic salt
 why is it weak?
 MD5 and SHA-1 are both highly vulnerable to collision attacks that attacker can use precomuted rainbow tables or hardware to reverse the hashes back into plain text
@@ -8,4 +8,36 @@ To secure this weakness:
 -Using hash function that specifically designed for password storage, such as bcrypt, 
 -and unique salt to each user  
 
-2. Insecure direct object references (IDOR)
+2. Access control weakness: Insecure direct object references (IDOR)
+A web application references internal database keys that directly in ULRs or API endpoint where user can be accessed to it without validation
+why is it weak?
+Attacker can easily guess the object identifiers, like changing id=1004 to id=1005). 
+If the backend allication does not check to verify the request of visiting invoice 1005 with explicit server side authroization, the system will expose another user's private data.
+To secure:
+For every database transaction, implement object level access control to verify checks on the server side
+or use non-enumerable UUIDs to replace predictable database sequential keys
+
+3. Communication weakness: Cleartext data transit
+Legacy network service to transmit data over unencrypted protocols, such as http port 80
+why is it weak?
+Data transmit in cleartext string formats. By using open-source tools, like Wireshark, attacker can easily sniff packets on the same network local area path. 
+Via Man-in-the-Middle sniffing, this weakness exposes session cookies, adiministrative credentials and proprietary corporate payloads. 
+To secure:
+Enfore encryption of transit pathways by strict security headers like HSTS
+
+4. Configuration weakness: unchanged default vendor configurations
+Using factory default administrative to deploy enterprise network alliances, content management systems, or database instances, which may expose to the public internet
+why is it weak?
+The default setup is only for user-friendly testing, instead of production hardening. 
+Standard credentails are completely public knowledge in online open-source reporitories. Attacker can continuely scan the ports to immediately locate thes open ednpoints and gain contol access of the system.
+To secure:
+Mandating policy that enforces an deministrative credentail change of initial configuration, 
+and also using local port 127.0.0.1, instead of univeral address 0.0.0.0
+
+5. Session management weakness: Secure, httpOnly cookie flags
+Without applying httpOnly and secure attributes in the http set-cookie response header while sending authentication session cookies to client browser.
+why is it weak?
+A cross-site scripting can read the cookie contents directly via standard DOM parameters while there isn't an httpOnly flag.
+Without a Secure flag, the browser will transmit authentic session token through insecure http conections, which expose the session to sniffer.
+To secure:
+Update the server runtime configuration.
