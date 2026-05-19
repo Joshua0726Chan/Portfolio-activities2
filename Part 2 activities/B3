@@ -3,3 +3,22 @@
 1. Shift-left security
 Integrate auto code analyzers and vulnerability scanners into a CI/CD (continuous integration and continuous deployment )software pipeline.
 Reasons:
+Security shifts left directly into the development cycle instead of after software runtime.
+  While a developer commits code:
+  SAST (static application security testing)-parses the source code for logical vulnerabilities
+  SCA (software composition analysis)-scans open-source depenedcies for vulnerabilities and exposures
+  DAST (dynamic application security testing)-checking live deployment issues by attack a temporary container. The pipline will automatically reject the build before the malicious code enter the server.
+
+2. Honeytokens and canary tokens
+Cyeber deception environment, applying fake assets of production networks, such as dummy API keys in code repository configuration or simulated database.
+Reasons:
+Traditional mechanisms has been known that create a lot of noise by log analysis. Deception technology is able to catch attacker before they can pinpoint users property during the early scannin phase.
+It triggers a silent alert once the attacker engaged in network reconnaissance or attempted to read and execute one of those fake keys.
+Also, to apply this technology has to make sure that a legit user has absolutely no functional reason to access a honeytoken.
+
+3. CASM (continuous attack surface management)
+It maps out digital footprint from an outside-in perspective by deploying automated external tools.
+Reasons:
+Traditional scanning is usually periodic, like monthly or quarterly, 
+however, CASM operates 24/7 to dicover 'mistakes', such as forgotten testing domains, orphaned cloud storage buckets or unpatch legacy portals, which are accidentally exposed to the internet.
+By dicovering these 'mistakes', this allows defenders to pull them offline before getting attack by malicious script bots scan the public IP blocks.
