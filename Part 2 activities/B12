@@ -1,0 +1,41 @@
+#B12. Discover two bias cases when using a generative AI system.
+
+1. Gender and age bias 
+Context: 
+Generative AI system (LLM, such as ChatGPT) is using by organizations to draft, summarize, or score CVs.
+
+Generation disparity: 
+When the AI model was asked to generate hypothetical resumes about female candidates which is based on gender-neutral baselines, models systematically generated articles that portrayed them as younger and less experienced than male.
+
+Evaluation amplification: 
+while the same AI model was asked to rate these generated resumes, it resulted a double standard.
+It consistently scored the hightest scores to older men while lower the score of older and younger female profile, even though the textual structures were mathematically balanced
+
+WHY?
+Billions of historical text, online profile and recruitment data is provided to LLMs that these data has affected the LLM. 
+As women have historically been underrepresented in long-term executive timelines, the model treats 'seniority' and 'masculinity' as statistically charactoristic, instead of impartially score the resume.
+
+Reference: StanfordReport. (2025, Oct 17). Researchers uncover AI bias against older working women
+https://news.stanford.edu/stories/2025/10/ai-llms-age-bias-older-working-women-research#:~:text=AI%20is%20perpetuating%20inaccurate%20gender,%7C%20Getty%20Images
+
+2. Occupational and demographical stereotyping
+Context:
+In marketing and media design industry, text-to-image models are using to generate illustrative media.
+When a specific job titles is prompted, these models might initially stark racial and gender stereotypes.
+
+Text-to-image: 
+When a user inputs a prompt like 'ceo', 'engineer' or 'software developer'. the models might output images as while, middle aged male
+
+Role inversion failure:
+During a prompt testing, counter-stereotypical prompts had been fed to the model for image generate, such as 'African doctors caring for suffering American children'.
+As result, the models consistently misunderstanding that render the suffering childern as African, and the doctors as American.
+
+Over sexualization:
+While creating a charactor that based on users prompt, the models consistently generate objectifying poses for female, and physical powered posture for male.
+
+WHY?
+During model training, the public internet image database has been used with massive imbalances, such as photos of executives are mainly male, or specific region has been depicted as poverty.
+By following the highest statistical porbability, it actively erases diversity.
+
+Reference: AIMultiple. (2026, Jan 22). Bias in AI: Examples and 6 ways to fix it in 2026. 
+https://aimultiple.com/ai-bias
