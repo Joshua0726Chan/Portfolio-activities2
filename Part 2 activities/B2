@@ -1,1 +1,20 @@
 #B2. Discover 5 unique strong security implementations.
+
+1. Passwordless hardware authentication, WebAuthn
+Using WebAuthn to replace traditional passwords or SMS multi-factor authentication
+Why is it strong?
+It is immune to credential stuffing and phishing attack. The private key will never leave the secure enclave of the harden token. 
+Also the process relies on verifying a digital signature server-side. Even if a user is tricked to visit a replica website, the browser will refuse to sign the challenge because the domine name is not match.
+
+2. Zero trust architecture via micro-segmentation
+Instead of network boundary model, it divids the network and isolated zones into individual containers.
+Why is it strong?
+It always verify instead of 'trust'. Traditionally, when attacker gains access to local network, he can freely compromise other machines, 
+while micro-segmentation ensures a strict firewall rules, identity checks and encrypted communication channel between resources.
+If a single web server is compromised, the attacker will be locked inside a segment and not be able to pivot to the backend database or internal directory.
+
+3. Argon2id
+It can be used as the primary algorithm for hashing user credentials or deriving encryption keys from master passwords.
+Why is it strong?
+Traditional hashing function, like SHA-256, is easy to be brute-force by ASICs or GPU arrays. 
+Argon2id forces the system to dedicate a customize amount of RAM that creates an asymmentric disadvantage for attackers that he had to run billions of guesses simultaneously while legit server only takes a second.
