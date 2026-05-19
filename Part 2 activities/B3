@@ -1,0 +1,5 @@
+#B3. Discover 3 proactive security implementations in practice.
+
+1. Shift-left security
+Integrate auto code analyzers and vulnerability scanners into a CI/CD (continuous integration and continuous deployment )software pipeline.
+Reasons:
