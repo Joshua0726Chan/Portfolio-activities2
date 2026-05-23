@@ -12,8 +12,11 @@ This SOTA solution bases on a stict principle of 'never trust, always verify' th
 Instead of granting access at login, system calculates continuously based on device health, user behavior and context of every individual APL call or document access request.
 references: 
 Cloudflare. (n.d.). Zero trust security| what is a zero trust network. 
-  https://www.cloudflare.com/learning/security/glossary/what-is-zero-trust/
+https://www.cloudflare.com/learning/security/glossary/what-is-zero-trust/
+S.Rose. (2020). Zero trust architecture.
+https://csrc.nist.gov/pubs/sp/800/207/final
 
-  https://csrc.nist.gov/pubs/sp/800/207/final
-
-3. 
+3. supply chain security and 'shift-left' 
+Open source libraries and third party APIs are heavily relied by modern software which make software supply chains as major targets.
+Security testing mechanisms are implemented directly into CI/CD pipelines to halt unauthorized builds automatically before vulnerable code reach runtime environment.
+Modern software componets are not wrtten but assembled, because of that, attackers inject malicious payloads into foundational open source repositories. As a SOTA solution, it treats code as untrusted supply chain asset that has to be cryptographically signed.
