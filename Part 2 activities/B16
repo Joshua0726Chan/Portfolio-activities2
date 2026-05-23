@@ -1,1 +1,19 @@
-B16. Survey the current state-of-the-art solutions in cybersecurity.
+B16. Survey the current state-of-the-art(SOTA) solutions in cybersecurity.
+Shift cybersecurity defences to continuous and automated resilience.
+
+1. Autonomous security operations and AI defence
+Traditional security operations centers are overwhelmed by alert fatigue. State-of-the-art solutions for that by delpoying automated AI SOCs using specialized models that use as security agents.
+SOTA solutions deploy automated models which capable of continuous predictive threat modeling and instant micro quarantining without monitoring. 
+Furthermore, by using Agentic AI, Identify and Access Management has improved to manage and update machine identities, tracking credentials and permissions in real time.
+
+
+2. Zero trust 
+This SOTA solution bases on a stict principle of 'never trust, always verify' that implements Identity Mediated Access based on NIST SP 800-207. 
+Instead of granting access at login, system calculates continuously based on device health, user behavior and context of every individual APL call or document access request.
+references: 
+Cloudflare. (n.d.). Zero trust security| what is a zero trust network. 
+  https://www.cloudflare.com/learning/security/glossary/what-is-zero-trust/
+
+  https://csrc.nist.gov/pubs/sp/800/207/final
+
+3. 
