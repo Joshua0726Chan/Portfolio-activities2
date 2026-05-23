@@ -1,1 +1,9 @@
 B14. Teach your friends about cybersecurity topic of your choice.
+In this activity, I taught my friend about the topic of AI in defensive cybersecurity. 
+By using the powerpoint of week12, we explored how anomaly-based intrusion detection systems (IDS) map a 'known normal' traffic through a autoencode neural network.
+Through the ppt images, I showed him how anomalous traffic passing through the model's bottleneck compression layer triggers a high reconstruction error to flag unmapped zero-day exploits. 
+To futher evaluated empirical performance, I showed him the Miral BotNet dataset that a Stats-based aggregate encoding format reaches a peak accuracy of 98.8% and precision rate of 100%. In contract, raw network packet communication flows shown signidicantly behind in maintaining detection precision.
+Furthermore, we discussed about the computer vision application for malware classification. Exploring how translating uncompiled binaries into 2D grayscale images works, which 
+allows a convolutional attention neural network to successfully flag structual malware with 98.18% accuracy without needing code execution.
+Finally, we discussed the constraints of LLMs in code vulnerability detection. We evaluated how prompt framing controls the dual-use refusal dilemma during safety training loops and discussed the performance gap within the DiverseVul dataset.
+
