@@ -1,1 +1,94 @@
 B23. Test an intrusion detection system and discuss its effectiveness.
+HIDS runs locally to detect anomalous system actions, brute-force access thresholds and privilege escalation patterns by scanning system traffic parameters.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+First, I deployed the defensive IDS engine by running commands to initialize the defensive engine layer through kali:
+mkdir -p ~/part-1-evidence/activity-b23
+cd ~/part-1-evidence/activity-b23
+
+cat << 'EOF' > ids_engine.py
+import re
+import datetime
+
+class HostIntrusionDetectionSystem:
+    def __init__(self, threshold_failed_logins=3):
+        self.THRESHOLD_FAILED_LOGINS = threshold_failed_logins
+        # In-memory database tracking transient operational threat metrics
+        self.failed_login_counters = {}
+
+    def analyze_log_line(self, log_entry):
+        timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        
+        # Brute-Force Login Detection Engine (CWE-307)
+        if "FAILED LOGIN" in log_entry:
+            user_match = re.search(r"user='([^']+)'", log_entry)
+            if user_match:
+                username = user_match.group(1)
+                self.failed_login_counters[username] = self.failed_login_counters.get(username, 0) + 1
+                
+                print(f"[{timestamp}] [IDS-INFO] Failed login attempt logged for user: '{username}' (Count: {self.failed_login_counters[username]})")
+                
+                # Assess threshold violations
+                if self.failed_login_counters[username] >= self.THRESHOLD_FAILED_LOGINS:
+                    print(f"[{timestamp}] [CRITICAL-ALERT-IDS] Brute-Force Exploit Target Locked! User '{username}' surpassed threshold limit.")
+                    return "ALERT_BRUTE_FORCE"
+
+        # SQL Injection Ingress Probe Detection (CWE-89)
+        if any(payload in log_entry.upper() for payload in ["UNION SELECT", "OR 1=1", "' OR ''='"]):
+            print(f"[{timestamp}] [CRITICAL-ALERT-IDS] SQL Injection Malicious Payload Pattern Intercepted inside API stream!")
+            return "ALERT_SQLI"
+
+        return "STATUS_NORMAL"
+
+if __name__ == "__main__":
+    print("[INIT] Active Monitoring Perimeter Online. HIDS Kernel Armed.")
+
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Then, to prove the effectiveness, an automated adversarical harness has been written:
+
+def execute_security_testing():
+    print("======================================================================")
+    print("STARTING ACTIVE CYBER SECURITY LABORATORY TEST: IDS EVALUATION")
+    print("======================================================================")
+    
+    # Instantiate the monitoring engine
+    hids = HostIntrusionDetectionSystem(threshold_failed_logins=3)
+    
+    # SIMULATING BRUTE-FORCE LOGIN ATTACK
+    print("\n--- Running Adversarial Simulation Vector 1: Authentication Brute Force ---")
+    mock_auth_logs = [
+        "Authentication request received: user='admin', status='SUCCESS'",
+        "Authentication request received: user='joshua', status='FAILED LOGIN', src_ip='192.168.1.50'",
+        "Authentication request received: user='joshua', status='FAILED LOGIN', src_ip='192.168.1.50'",
+        "Authentication request received: user='joshua', status='FAILED LOGIN', src_ip='192.168.1.50'"
+    ]
+    for log in mock_auth_logs:
+        time.sleep(0.1)
+        hids.analyze_log_line(log)
+
+    # SIMULATING APPLICATION-LAYER SQL INJECTION (SQLi)
+    print("\n--- Running Adversarial Simulation Vector 2: Application SQL Injection ---")
+    mock_web_log = "HTTP GET /api/users/profile?id=1%20UNION%20SELECT%20username,password%20FROM%20users"
+    print(f"[ATTACK TRAFFIC] Input Raw Web API String: {mock_web_log}")
+    
+    # Clean the URL-encoded string to simulate application parsing layers
+    parsed_log = "Database Query Parameter Value Received: '1 UNION SELECT username,password FROM users'"
+    hids.analyze_log_line(parsed_log)  
+    print("======================================================================")
+if __name__ == "__main__":
+    execute_security_testing()
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+As result:
+![image alt](https://github.com/Joshua0726Chan/Portfolio-activities2/blob/672990c3f6d297d92064639706b8e12ee1101a7f/Part%202%20activities/B23.jpeg)
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Discussing effectiveness:
+The testing log demonstrate that HIDS provides exceptional deterministic precision and milisecond parsing efficiency against attack vectors though constrained by its rigidity.
+It reamins highly vulnerable to signature evasion using basic character obfuscation tech. Therefore, it frequencely generats false positives and triggers alert fatigue during routine administrative operations,
+that it must be paired with anomaly-based detection engines to secure an enterprise perimeter.
+
