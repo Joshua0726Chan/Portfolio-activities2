@@ -6,7 +6,7 @@ Then, I edited it by cropping both sides of the image and increase the brightnes
 ![image alt](https://github.com/Joshua0726Chan/Portfolio-activities2/blob/51e4a1e5ca40b2e5a512256cd9101a2328b94219/Part%202%20activities/B30_edited(1).png)
 
 Again, I let Gemini to regenerate the image with the prompt of lower the Denoising Strength by 0.3-0.4
-![image alt]()
+![image alt](https://github.com/Joshua0726Chan/Portfolio-activities2/blob/febc86db1d5bc19e83175e3595576b6ae8a4befe/Part%202%20activities/B30_edited(2).png)
 
 Finally, I used a website called ZeroGPT which is an AI image detector. As result, the edited image has a 99% confidence.
 ![image alt]()
