@@ -1,4 +1,7 @@
 B17. Implement one of the current state-of-the-art solutions and evaluate it.
 Refer to B16, I was trying to implement SOTA shift-left software supply chain through my kali.
 
-First, 
+First, I had to enable and initate the Docker background system service and permit current non-root user execution access to the docker sockers in my device.
+![image alt](https://github.com/Joshua0726Chan/Portfolio-activities2/blob/51224e13407b979250a7e623e1b0e59d126b7774/Part%202%20activities/B17_image%5B1%5D.jpeg)
+
+Then, I created a dummy python script containing a insecure logic implementation.
