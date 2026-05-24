@@ -1,0 +1,12 @@
+B11. Talk to 2 cybersecurity experts from the industry and find out their latest projects.
+
+1. Alex Chan (Senior Security Architect, Major Hong Kong Bank)
+"The core project I am currently driving at the bank is 'Identity-based Dynamic Privilege Adjustment'... We have now introduced JEA (Just Enough Access)..."
+As his latest project, for internal developers at the bank, his team have eliminated long-term administrative privileges that
+moving instead to a "just-in-time request, just-in-time authorization" mechanism, which automatically revokes permissions after use.
+
+2. Dr. Sarah Wong (Hong Kong Science Park Enterprise)
+"...our latest project is the 'AI Automated Audit Defense Line'... We utilize machine learning models to monitor abnormal traffic...
+If an account attempts to access sensitive servers outside of business hours, the system will immediately deny the access and trigger an alert..."
+As her latest project, her team have developing a dashboard capable of real-time analysis across tens of thousands of logs. 
+Once privilege abuse is detected, the AI automatically updates firewall rules to block the suspicious source.
