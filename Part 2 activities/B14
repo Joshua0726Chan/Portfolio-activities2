@@ -7,3 +7,4 @@ Furthermore, we discussed about the computer vision application for malware clas
 allows a convolutional attention neural network to successfully flag structual malware with 98.18% accuracy without needing code execution.
 Finally, we discussed the constraints of LLMs in code vulnerability detection. We evaluated how prompt framing controls the dual-use refusal dilemma during safety training loops and discussed the performance gap within the DiverseVul dataset.
 
+![image alt](https://github.com/Joshua0726Chan/Portfolio-activities2/blob/c314576dbbde18f77da2e3b998a0290cb5d566b1/Part%202%20activities/B14_image.jpeg)
