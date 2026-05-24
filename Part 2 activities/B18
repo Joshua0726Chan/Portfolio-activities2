@@ -1,0 +1,64 @@
+B18. Contribute to an open-source project related to cybersecurity.
+
+I was working on a project with my friends of Hong Kong through online.
+As a part of the project, I was working on a test string excluder plugin that was just designed to filter out junk strings and dummy variables.
+
+As the relation of cybersecurity, in real world engineering, scanners frequently trigger false positives over dummy variables in test environments.
+Here the python scripts:
+
+class GuardRailCore:
+    def __init__(self):
+        self.pipeline_plugins = []
+
+    def register_plugin(self, plugin):
+        self.pipeline_plugins.append(plugin)
+
+    def run_core_pipeline(self, found_secrets_list):
+        print(f"[CORE] Received raw findings from main scanner engine...")
+        filtered_list = []
+        for secret in found_secrets_list:
+            is_valid = True
+            for plugin in self.pipeline_plugins:
+                if plugin.should_exclude(secret):
+                    is_valid = False
+                    break
+            if is_valid:
+                filtered_list.append(secret)
+        return filtered_list
+
+class EasyTestStringFilterPlugin:
+    def __init__(self):
+        self.plugin_name = "Junk_Filter"
+        self.exclude_keywords = ["123456", "password123", "dummy_token", "test_key"]
+
+    def should_exclude(self, secret_string):
+        for keyword in self.exclude_keywords:
+            if keyword in secret_string:
+                print(f"[{self.plugin_name}] Automatically filtering out test junk data: '{secret_string}'")
+                return True
+        return False
+
+def test_run():
+    print("=== Verification: Running My Easy Open-Source Contribution Patch ===")
+    
+    mock_findings = [
+        "AWS_KEY_ID: AKIAIOSFODNN7EXAMPLE",
+        "ADMIN_PASSWORD: password123",  
+        "DATABASE_SECRET: dummy_token",
+        "PROD_TOKEN: live_ghp_99x82b1v"
+    ]
+
+    core_engine = GuardRailCore()
+    
+    my_easy_patch = EasyTestStringFilterPlugin()
+    core_engine.register_plugin(my_easy_patch)
+
+    final_output = core_engine.run_core_pipeline(mock_findings)
+    
+    print("\n--- Final Valid Production Violations Retained ---")
+    for legitimate_finding in final_output:
+        print(f"[VALID PROD THREAT] {legitimate_finding}")
+    print("======================================================================")
+
+if __name__ == "__main__":
+    test_run()
