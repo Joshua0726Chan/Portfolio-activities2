@@ -1,0 +1,77 @@
+B24. Design and implement access control of your choice.
+An RBAC (Role-base access control)mechanism was designed to secure sensitive application operations.
+The code has been done through Kali:
+mkdir -p ~/part-1-evidence/activity-b24
+cd ~/part-1-evidence/activity-b24
+
+cat << 'EOF' > rbac_engine.py
+import datetime
+
+class RoleBasedAccessControl:
+    def __init__(self):
+        self.ROLE_PERMISSIONS = {
+            'Admin':     ['READ_DATA', 'WRITE_DATA', 'DELETE_DATA', 'PURGE_LOGS'],
+            'Engineer':  ['READ_DATA', 'WRITE_DATA'],
+            'Guest':     ['READ_DATA']
+        }
+        self.USER_ROLES = {
+            'joshua': 'Admin',
+            'staff_user': 'Engineer',
+            'anonymous_guest': 'Guest'
+        }
+
+    def validate_access(self, username, required_permission):
+        timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        
+        if username not in self.USER_ROLES:
+            print(f"[{timestamp}] [ACCESS-DENIED] Identity '{username}' not found in registry. Dropping packet.")
+            return False
+            
+        assigned_role = self.USER_ROLES[username]
+        allowed_permissions = self.ROLE_PERMISSIONS.get(assigned_role, [])
+        
+        if required_permission in allowed_permissions:
+            print(f"[{timestamp}] [ACCESS-GRANTED] User '{username}' [Role: {assigned_role}] authorized for action: '{required_permission}'.")
+            return True
+        else:
+            print(f"[{timestamp}] [ACCESS-DENIED] User '{username}' [Role: {assigned_role}] lacks explicit permission: '{required_permission}' (CWE-285).")
+            return False
+
+if __name__ == "__main__":
+    print("[INIT] RBAC Identity Gateway Active. Authorization matrix armed.")
+EOF
+
+cat << 'EOF' > test_access.py
+from rbac_engine import RoleBasedAccessControl
+import time
+
+def run_rbac_test_suite():
+    print("======================================================================")
+    print("STARTING IDAM GATEWAY ACCESS CONTROL VERIFICATION RUN")
+    print("======================================================================")
+    
+    rbac = RoleBasedAccessControl()
+    
+    print("\n[SCENARIO 1] Testing Administrative Operations...")
+    rbac.validate_access(username='joshua', required_permission='PURGE_LOGS')
+    
+    print("\n[SCENARIO 2] Testing Engineering Operations...")
+    rbac.validate_access(username='staff_user', required_permission='WRITE_DATA')
+    
+    print("\n[SCENARIO 3] Testing Malicious Privilege Escalation Trajectory...")
+    rbac.validate_access(username='anonymous_guest', required_permission='DELETE_DATA')
+    
+    print("\n[SCENARIO 4] Testing Rogue Foreign Identity Entry...")
+    rbac.validate_access(username='unknown_attacker', required_permission='READ_DATA')
+    
+    print("======================================================================")
+
+if __name__ == "__main__":
+    run_rbac_test_suite()
+EOF
+
+chmod +x rbac_engine.py test_access.py
+python3 test_access.py | tee access_verification.log
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+As result:
