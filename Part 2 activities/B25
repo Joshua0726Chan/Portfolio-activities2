@@ -1,0 +1,65 @@
+B25. Design and implement a threat intelligence module of your choice.
+An automated threat intelligence module was designed that ingests a structured threat feed containing knwon malicious IP addresses and checks network logs to identify and quarantine malicious communication.
+Through kali:
+mkdir -p ~/part-1-evidence/activity-b25
+cd ~/part-1-evidence/activity-b25
+
+cat << 'EOF' > threat_intel.py
+import datetime
+
+class ThreatIntelligenceModule:
+    def __init__(self):
+        self.INTEL_FEED_IOCS = {
+            '198.51.100.45': {'threat_type': 'Botnet Command & Control', 'confidence': 0.95},
+            '203.0.113.110': {'threat_type': 'Known Phishing Host', 'confidence': 0.88},
+            '192.0.2.89':    {'threat_type': 'Active Brute-Force Scanner', 'confidence': 0.91}
+        }
+
+    def inspect_packet_telemetry(self, source_ip):
+        timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        
+        if source_ip in self.INTEL_FEED_IOCS:
+            intel_data = self.INTEL_FEED_IOCS[source_ip]
+            print(f"[{timestamp}] [THREAT-MATCH-ALARM] Source IP '{source_ip}' matches Threat Intel Feed!")
+            print(f"[{timestamp}] [DETAILS] Classification: {intel_data['threat_type']} | Confidence Score: {intel_data['confidence']*100}%")
+            return "MATCH_BLOCKED"
+        else:
+            print(f"[{timestamp}] [TRAFFIC-CLEAN] Connection from '{source_ip}' approved. No threat match.")
+            return "CLEAN_APPROVED"
+
+if __name__ == "__main__":
+    print("[INIT] Threat Intelligence Ingestion Engine Armed. Feeds synchronized.")
+EOF
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+To create the testing harness script that simulates netwrok connection: (through kali)
+cat << 'EOF' > test_intel.py
+from threat_intel import ThreatIntelligenceModule
+import time
+
+def run_threat_intel_assessment():
+    print("======================================================================")
+    print("STARTING THREAT INTELLIGENCE INGESTION & INTERCEPTION RUN")
+    print("======================================================================")
+    
+    intel_mod = ThreatIntelligenceModule()
+    
+    print("\n[SCENARIO 1] Processing Traffic from Benign Local Resident IP...")
+    intel_mod.inspect_packet_telemetry(source_ip='192.168.1.105')
+    
+    print("\n[SCENARIO 2] Processing Intercepted Botnet Infrastructure IP...")
+    intel_mod.inspect_packet_telemetry(source_ip='198.51.100.45')
+    
+    print("\n[SCENARIO 3] Processing Intercepted Active External Scanner IP...")
+    intel_mod.inspect_packet_telemetry(source_ip='192.0.2.89')
+    
+    print("======================================================================")
+
+if __name__ == "__main__":
+    run_threat_intel_assessment()
+EOF
+chmod +x threat_intel.py test_intel.py
+python3 test_intel.py | tee intel_verification.log
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+As result:
+![image alt]()
