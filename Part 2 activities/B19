@@ -1,0 +1,43 @@
+B19. Find and fix a vulnerability from a GitHub project.
+I have chosen a Github project of Password Strength Analysis Tool.
+This code is designed to analyze string and generate text-based security diagnos reports for users based on their password.
+However, I found that while the user tries to input a name for their password report, the application blindly accepts the string input and passes it to the filesystem commmands without enforcing imput snitization, 
+which introduce a path traversal vulnerability (CWE-22) that can be exploited by entering a relative path payload to force the application to break of the sandboxed folder and overwrite the condiguration files.
+
+To fix the vulnerability, enforcing strict path canonicalization and perimeter whitelisting:
+
+import os
+
+def save_password_report_secure():
+    print("--- Secure Password Strength Analysis Tool ---")
+    password = input("Enter password to test: ")
+    
+    report_name = input("Enter a name to save your scan report: ")
+    SAVE_DIRECTORY = os.path.abspath("./reports/")
+    
+    # start fixing 
+    # 1. HARDENING SANITIZATION: Force extraction of base filename only, discarding directory paths
+    safe_filename = os.path.basename(report_name)
+    if not safe_filename.endswith(".txt"):
+        safe_filename += ".txt"
+        
+    # 2. CANONICALIZATION: Compute the absolute, fully resolved canonical target path
+    resolved_path = os.path.abspath(os.path.join(SAVE_DIRECTORY, safe_filename))
+    
+    # 3. BOUNDARY VALIDATION GATE: Enforce strict verification that the path remains trapped inside the sandbox
+    if not resolved_path.startswith(SAVE_DIRECTORY):
+        print("[SECURITY ERROR] Access Denied: Unauthorized Directory Traversal Detained.")
+        return False
+    # end of fixing
+
+    # Execution occurs only if the validation logic above passes successfully
+    with open(resolved_path, "w", encoding="utf-8") as f:
+        f.write(f"Password Diagnostic Analysis Report for: {password}\nStatus: Secured")
+        
+    print(f"Report safely written to sandboxed path: {resolved_path}")
+    return True
+
+
+
+
+which discard all injected relative directory sequences, and deploys a gate to ensure the target file path is mathematically constrained within the sandbozed directory boundary.
