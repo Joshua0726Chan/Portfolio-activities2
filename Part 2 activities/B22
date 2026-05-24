@@ -1,0 +1,27 @@
+B22. Enhance the cybersecurity of a website from your community.
+For this activity, I have chosen https://erdplus.com/ as my choice of website from the community.
+Insecure session token generation and wordy header transmissions have been identified that the software routinely transmits session cookies to the user's browser without applying safety parameters such as httponly, secure, or samesite flags.
+This failure might permit malicious XSS scripts to disturb acitve session identifiers.
+Furthermore, the backend infrastucture exposes specific technolohy stack specifications via HTTP response like Server, which leaks environment blueprint to network sniffers and facilitating targeted zero-day threat discovery.
+Here is the fixed code:
+
+from flask import Flask, make_response, jsonify
+app = Flask(__name__)
+@app.route('/api/dashboard', methods=['GET'])
+
+def dashboard_secure():
+    response = make_response(jsonify({"status": "authenticated", "data": "Hardened Secure Community Portal"}))
+    # FIX LAYER 1: Enforcing Strict Browser-Enforced Cookie Boundaries
+    response.set_cookie(
+        'session_id', 
+        'xyz123communitytoken',
+        httponly=True,        # <-- FIXED: Prevents client-side scripts (XSS) from reading the token 
+        secure=True,          # <-- FIXED: Enforces transmission exclusively over encrypted HTTPS 
+        samesite='Strict'     # <-- FIXED: Completely isolates cookie from Cross-Site Request Forgery 
+    )
+    
+    # FIX LAYER 2: Neutralizing Information Disclosure and Tech Stack Reconnaissance
+    response.headers['X-Powered-By'] = 'Hidden'                         # <-- FIXED: Scrubs runtime environment signatures 
+    response.headers['Server'] = 'Secure Web Infrastructure Engine'      # <-- FIXED: Overwrites verbose backend framework banners 
+    
+    return response
