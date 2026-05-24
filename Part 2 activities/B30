@@ -3,7 +3,7 @@ First, I created an image with Gemini AI. The prompt is 'A serene mountain lands
 ![image alt](https://github.com/Joshua0726Chan/Portfolio-activities2/blob/9efc1b55b67812dc1f8e950863cdc2148496b700/Part%202%20activities/B30_origin.png)
 
 Then, I edited it by cropping both sides of the image and increase the brightness by 10.
-![image alt]()
+![image alt](https://github.com/Joshua0726Chan/Portfolio-activities2/blob/51e4a1e5ca40b2e5a512256cd9101a2328b94219/Part%202%20activities/B30_edited(1).png)
 
 Again, I let Gemini to regenerate the image with the prompt of lower the Denoising Strength by 0.3-0.4
 ![image alt]()
