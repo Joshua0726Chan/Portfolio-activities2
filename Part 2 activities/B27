@@ -1,0 +1,21 @@
+B27. Apply a learned concept in this unit to a real-world application/problem/environment.
+In a standard enterprise network storage environment, a challenge is to protect files from unauthorized viewing or modification by unauthorized internal users.
+By establishing a Discretionary Access Control (DAC) matrix, the data owner can specify clear permissions, such as Read, Write, and Execute, as known as RWE, for different subjects relative to specific backend objects, like folders or files.
+This isolates corporate data and drops illegal requests directly at the access gateway layer.
+
+DAC matrix successfully contains transactions based on explicit subject permissions. 
+When an unauthorized access request occurs, such as Alice attempting to execute a Write instruction or Charlie targeting a hidden spreadsheet—the system halts execution instantly.
+
+However, since DAC relies on permissions attached directly to objects or subjects, managing this system manually becomes complicated as user directories expand.
+In an enterprise context, any configuration mistakes made by data owners can lead to privilege leaks, which highlights the need for centralized oversight in high-security configurations.
+
+2013 Target breach:
+Attackers did not break into Target’s primary servers directly. Instead, they compromised the credentials of a third-party HVAC (Heating, Ventilation, and Air Conditioning) vendor, 
+which had legitimate access to Target’s network to monitor store temperatures and energy consumption.
+According to the concept, they should have zero permission to touch the corporate network, payment processing servers, or point-of-sale (POS) systems.
+Once the attackers gained the HVAC vendor’s credentials, they had a "green light" to move laterally across the entire network that installed malware on Target's POS systems and stole the credit card information of over 40 million customers.
+
+As result:
+It did not restrict the vendor to a specific "Access Control List" (ACL) related only to HVAC systems. 
+The HVAC vendor's account would have been blocked by even pinging the payment network according to the least privilege idea whcih should minimize the damage.
+This breach remains one of the most cited examples in cybersecurity because it proves that Authentication is useless without strict Authorization.
