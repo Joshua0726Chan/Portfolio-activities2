@@ -10,3 +10,5 @@ Then, I created a dummy python script containing a insecure logic implementation
 I wrote a shell script that acts as the automated pipeline enforcement gatekeeper.
 ![image alt](https://github.com/Joshua0726Chan/Portfolio-activities2/blob/1a6c560a753fd8feaaa921e7b10ba89b2ecadad5/Part%202%20activities/B17_image%5B3%5D.jpeg)
 
+Finally, by runnning ./gatekeeper_pipeline.sh to observe its defence mechanisms in real time. As result:
+![image alt](
