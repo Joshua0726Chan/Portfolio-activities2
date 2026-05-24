@@ -1,0 +1,12 @@
+B30. Generate an AI-created image, applying an imperceptible watermark on it and then perform an image-to-image regeneration or editing process to make sure the watermark is detectable---the watermark survives.
+First, I created an image with Gemini AI. The prompt is 'A serene mountain landscape at sunset, high detail.'.
+![image alt]()
+
+Then, I edited it by cropping both sides of the image and increase the brightness by 10.
+![image alt]()
+
+Again, I let Gemini to regenerate the image with the prompt of lower the Denoising Strength by 0.3-0.4
+![image alt]()
+
+Finally, I used a website called ZeroGPT which is an AI image detector. As result, the edited image has a 99% confidence.
+![image alt]()
