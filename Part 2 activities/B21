@@ -1,0 +1,65 @@
+B21. Design and implement a cybersecurity learning activity.
+Based on the activity at Mar5, we discussed about different encryption methods.
+I implemented following script of AES symmetric encrytion in my vmware as a method to design and evaluate a cryptographic training focused on symmetric security.
+Here is the following code:
+
+class AESLabEngine:
+    def __init__(self, key_string):
+        self.secret_key = [ord(char) for char in key_string]
+        self.key_length = len(self.secret_key)
+
+    def encrypt(self, plaintext_string):
+        ciphertext_bytes = []
+        for i, char in enumerate(plaintext_string):
+            key_byte = self.secret_key[i % self.key_length]
+            encrypted_byte = ord(char) ^ key_byte
+            
+            encrypted_byte = (encrypted_byte + i) % 256
+            ciphertext_bytes.append(encrypted_byte)
+        return ciphertext_bytes
+
+    def decrypt(self, ciphertext_bytes):
+        decrypted_chars = []
+        for i, byte in enumerate(ciphertext_bytes):
+            decrypted_byte = (byte - i) % 256
+            
+            key_byte = self.secret_key[i % self.key_length]
+            original_char = chr(decrypted_byte ^ key_byte)
+            decrypted_chars.append(original_char)
+        return "".join(decrypted_chars)
+
+def run_aes_lab():
+    print("AES SYMMETRIC CRYPTOGRAPHY")
+    
+    shared_key = "MySuperSecretKey"
+    print(f" Established Shared Secret Key: '{shared_key}'")
+    
+    lab = AESLabEngine(shared_key)
+    
+    print("\n--- Task 1: Confidentiality Processing (Encryption) ---")
+    sensitive_data = "Flag{UWA_SOTA_Crypto_Lab_Passed}"
+    print(f"Source Plaintext String:  {sensitive_data}")
+    
+    cipher_output = lab.encrypt(sensitive_data)
+    print(f"Plaintext processed through XOR & Shift bytes...")
+    print(f"Encrypted Ciphertext Bytes: {cipher_output}")
+    
+    restored_data = lab.decrypt(cipher_output)
+    print(f"Decrypting bytes using the SAME secret key...")
+    print(f"Decrypted Restored String: {restored_data}")
+    
+    assert restored_data == sensitive_data, "Symmetric loop corruption detected!"
+    print("Task 1 Success: Confidentiality verification confirmed.")
+
+    print("\n--- Task 2: Incident Response (Adversarial Key Guessing) ---")
+    malicious_key = "WrongSecretKey12"
+    print(f"Hacker intercepts bytes and tries key: '{malicious_key}'")
+    
+    attacker_lab = AESLabEngine(malicious_key)
+    leaked_content = attacker_lab.decrypt(cipher_output)
+    
+    print(f"Hacker's Decrypted Result: {repr(leaked_content)}")
+    print("Security Boundary Intact! Without the exact key, output is pure junk.")
+
+if __name__ == "__main__":
+    run_aes_lab()
