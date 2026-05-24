@@ -7,3 +7,6 @@ First, I had to enable and initate the Docker background system service and perm
 Then, I created a dummy python script containing a insecure logic implementation.
 ![image alt](https://github.com/Joshua0726Chan/Portfolio-activities2/blob/3e844d60c72e0e748211d30edcc6eea0fbcaacc6/Part%202%20activities/B17_image%5B2%5D.jpeg)
 
+I wrote a shell script that acts as the automated pipeline enforcement gatekeeper.
+![image alt](https://github.com/Joshua0726Chan/Portfolio-activities2/blob/1a6c560a753fd8feaaa921e7b10ba89b2ecadad5/Part%202%20activities/B17_image%5B3%5D.jpeg)
+
